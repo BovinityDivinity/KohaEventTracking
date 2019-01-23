@@ -1,0 +1,49 @@
+[% USE Branches %]
+[% INCLUDE 'doc-head-open.inc' %]
+ <title>Koha: LCLS Event Attendance Tracking</title>
+[% INCLUDE 'doc-head-close.inc' %]
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'cat-search.inc' %]
+
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Event Tracking &rsaquo;</div>
+
+<div id="doc3">    
+    <h3>Koha: LCLS Event Attendance Tracking</h3>
+        <div class="col-xs-4">
+            <div class="form-group">    
+                <p>
+                <form method="get">        
+                    <input type="hidden" name="class" value="[% CLASS %]" />
+                    <input type="hidden" name="method" value="[% METHOD %]" />
+
+                    <label for="title">Event Title: </label>
+                    <input type="text" class="form-control" name="title" />
+                    <p>
+                    <label for="date">Event Date: </label>
+                    <input type="date" class="form-control" name="date" />
+                    <p>        
+                    <label for="branch">Event Location: </label>
+                    <select name="branch" id="branch" class="form-control" >
+                        [% PROCESS options_for_libraries libraries => Branches.all(selected => branchshort) %]
+                    </select>
+                    <p>
+                    <label for="description">Event Description: </label>
+                    <input type="text" class="form-control" name="description" />        
+                    <p>
+                    <label for="adults">Adult Attendance: </label>
+                    <input type="number" class="form-control" name="adults" />
+                    <p>
+                    <label for="children">Child Attendance: </label>
+                    <input type="number" class="form-control" name="children" />
+                    <p>
+                    <input type="hidden" name="op" value="submitevent" />
+
+                    <button type="submit" value="Submit">Submit</button>&nbsp;<button type="button" onclick="location.href='/cgi-bin/koha/plugins/run.pl?class=Koha::Plugin::EventTracking&method=tool'">Cancel</button>
+            </form>
+            <hr/>
+        </div>
+    </div>
+</div>
+[% INCLUDE 'intranet-bottom.inc' %]

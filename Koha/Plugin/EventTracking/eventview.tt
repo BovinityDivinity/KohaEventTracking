@@ -1,0 +1,63 @@
+[% INCLUDE 'doc-head-open.inc' %]
+ <title>Koha: LCLS Event Attendance Tracking</title>
+[% INCLUDE 'doc-head-close.inc' %]
+<link rel="stylesheet" type="text/css" href="/intranet-tmpl/prog/css/datatables_18.0505000.css">
+</head>
+<body>
+[% INCLUDE 'header.inc' %]
+[% INCLUDE 'circ-search.inc' %]
+
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a> &rsaquo; <a href="/cgi-bin/koha/plugins/plugins-home.pl">Plugins</a> &rsaquo; Event Tracking &rsaquo;</div>
+
+<div id="doc3">    
+    <h3>Koha: LCLS Event Attendance Tracking</h3>     
+    <table id="eventsTable" class="dataTable">
+        <thead>
+            <tr>
+                <th>Event ID</th>
+                <th>Event Title</td>
+                <th>Date</td>
+                <th>Location</td>
+                <th>Description</td>
+                <th>Adult Attendance</td>
+                <th>Child Attendance</td>
+                <th>Actions</td>
+            </tr>
+        </thead>    
+    [% FOREACH event IN eventlist %]    
+    <tr>        
+        <td>[% event.eventnumber %]</td>
+        <td>[% event.eventname %]</td>
+        <td>[% event.eventdate %]</td>
+        <td>[% event.location %]</td>
+        <td>[% event.description %]</td>
+        <td>[% event.adultattendance %]</td>
+        <td>[% event.childattendance %]</td>
+        <td><button type="button" onclick="location.href='/cgi-bin/koha/plugins/run.pl?class=Koha::Plugin::EventTracking&method=tool&op=delevent&id=[% event.eventnumber %]'">Delete</a></button></td>        
+    </tr>
+    [% END %]
+    </table>
+    <ul class="buttons-list">
+        <li>
+            <a class="circ-button" href="/cgi-bin/koha/plugins/run.pl?class=Koha::Plugin::EventTracking&method=tool">Return to Event Tracker Home</a>
+        </li>            
+    </ul>   
+    <hr/>     
+</div>     
+[% INCLUDE 'datatables.inc' %]
+[% INCLUDE 'columns_settings.inc' %]
+<script>
+var rtable = KohaTable("eventsTable", {
+    'bAutoWidth': false,
+    'sPaginationType': 'four_button',
+    'aaSorting': [[0, "asc"]],
+    'aoColumnDefs': [
+        {'bSortable': false, 'bSearchable': false, 'aTargets': [7]},        
+        {'sType': 'date', 'aTargets': [2]},
+        {'sType': 'string', 'aTargets' : [1, 3, 4]},
+        {'sType': 'numeric', 'aTargets' : [5, 6]}
+    ],
+    'oLanguage': {'sZeroRecords': _("No events found")}
+});
+</script>
+[% INCLUDE 'intranet-bottom.inc' %]
