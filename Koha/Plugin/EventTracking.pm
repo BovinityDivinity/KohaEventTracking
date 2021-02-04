@@ -5,13 +5,13 @@ use C4::Context;
 
 our $metadata = {
     name            => 'Event Tracking',
-    author          => 'Michael A Springer',
+    author          => 'N/A',
     date_authored   => '2019-01-16',
     date_updated    => '2019-01-19',
     minimum_version => undef,
     maximum_version => undef,
     version         => '0.8',
-    description     => 'Event tracking for LCLS',      
+    description     => 'Event tracking Plugin For Koha',      
 };
 
 sub new {
